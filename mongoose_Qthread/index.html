@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>@Restful WebService API Proof of concept :) </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style type="text/css">
+    * { outline: none; font: 16px/1.4 Helvetica, Arial, sans-serif; }
+    body {
+      background-color:lightslategray; margin: 0;
+      padding: 0; font: 16px/1.4 Helvetica, Arial, sans-serif;
+    }
+    div.content {
+      width: 800px; margin: 2em auto; padding: 20px 50px;
+      background-color:lightskyblue; border-radius: 1em;
+    }
+ test2 {
+     color:blue
+    }
+    label { display: inline-block; min-width: 7em; }
+    input { border: 1px solid #ccc; padding: 0.2em; }
+    a:link, a:visited { color: #69c; text-decoration: none; }
+    @media (max-width: 700px) {
+      body { background-color: #fff; }
+      div.content { width: auto; margin: 0 auto; padding: 1em; }
+    }
+  h1   {color:blue}
+  code    {color:white}
+  pktext {color:lime}
+</style>
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script language="javascript" type="text/javascript">
+  jQuery(function() {
+                        $(document).on('keyup', '#n1, #n2', function() {
+                                    $.ajax({
+                                            url: 'http://localhost:38000/api/mult',
+                                            method: 'POST',
+                                            dataType: 'json',
+                                            data: { n1: $('#n1').val(), n2: $('#n2').val() },
+                                            success: function(json) {
+                                            $('#result1').html(json.result);
+                                            }
+                                           });
+                                       });
+
+  
+                      $('.GetNymButton').click(function(){
+                       
+                                               $.ajax({
+                                                      url: 'http://localhost:38000/api/getpubkey',
+                                                      method: 'GET',
+                                                      dataType: 'json',
+                                                      data: { role: $('#role').val()},
+                                                      success: function(json) {
+                                                      $('#pubkey').html(json.result);
+                                                      }
+                                                      });
+
+                             $.ajax({
+                               url: 'http://localhost:38000/api/getnym',
+                               method: 'POST',
+                               dataType: 'json',
+                               data: { role: $('#role').val()},
+                               success: function(json) {
+                                                        $('#nymid').html(json.result);
+                                                        }
+                               });
+                        
+                                               
+                                               
+                        });
+
+         });
+  
+ 
+</script>
+</head>
+<body>
+  <div class="content">
+    <h1>RESTFUL JSON - Proof of Concept</h1>
+    <h2> by Central Services </h2>
+
+    <p>
+      This test page is a proof of concept of Restful web services using json to
+      build RESTful APIs
+   </p>
+   
+   <test1>
+       TEST 1: <br>
+       Push the button and get a nym and Public Key  <br>
+       
+       <div>
+           <label>Role Name:</label> <input type="text" id="role" />
+       </div>
+       
+       <div>
+           <label>Nym ID:</label> <span id="nymid">&nbsp;</span>
+       </div><div>
+           <label>Public Key:</label> <pktext><span id="pubkey">&nbsp;</span></pktext>
+       </div><div>
+           <button type="button" class="GetNymButton"/>
+           Get Nym Info
+           </button>       </div><div>
+           
+           
+           
+           <p>
+           
+           This is an example of how the Rest web service can be invoked: <br><br>
+           
+           
+           <code >    $('.GetNymButton').click(function(){<br>
+               
+               $.ajax({<br>
+               url: 'http://localhost:38000/api/getpubkey',<br>
+               method: 'GET',<br>
+               dataType: 'json',<br>
+               data: { role: $('#role').val()},<br>
+               success: function(json) {<br>
+               $('#pubkey').html(json.result);<br>
+               }<br>
+               });<br><br>
+               
+               $.ajax({<br>
+               url: 'http://localhost:38000/api/getnym',<br>
+               method: 'POST',<br>
+               dataType: 'json',<br>
+               data: { role: $('#role').val()},<br>
+               success: function(json) {<br>
+               $('#nymid').html(json.result);<br>
+               }<br>
+               });<br>
+               
+               
+               
+               });<br>
+
+
+           </code>
+   </test1>
+   
+    <test2>
+        TEST 2: <br>
+      Enter numbers below and see the output. Browser will send
+      two numbers to <tt>/api/sum</tt> URI.
+      Mongoose hit the bussines logic to execute the "multiplication" function and return the sum result
+   
+    <div>
+      <label>Number 1:</label> <input type="text" id="n1" />
+    </div><div>
+      <label>Number 2:</label> <input type="text" id="n2" />
+    </div><div>
+     <label>Result:</label> <span id="result1">&nbsp;</span>
+    </div><div>
+  
+
+
+   <p>
+   
+   This is an example of how the Rest web service can be invoked: <br><br>
+   
+   
+   <code >  jQuery(function() {<br>
+   
+   $(document).on('keyup', '#n1, #n2', function() {<br>
+   $.ajax({
+   url: 'http://localhost:38000/api/mult',<br>
+   method: 'POST',<br>
+   dataType: 'json',<br>
+   data: { n1: $('#n1').val(), n2: $('#n2').val() },<br>
+   success: function(json) {<br>
+   $('#result').html(json.result);<br>
+   }<br>
+   });<br>
+  
+  </code>
+</test2>
+  </p>
+
+  </div>
+</body>
+</html>
