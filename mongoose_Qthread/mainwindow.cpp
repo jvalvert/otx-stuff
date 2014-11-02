@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->webView->showMaximized();
 }
 
+
 MainWindow::~MainWindow()
 {
     delete ui;

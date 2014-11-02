@@ -14,8 +14,6 @@ void RestfulApi::run()
       while(true) {
         mg_poll_server(server, 1000);
       }
-
-
 }
 
 void RestfulApi::sl_quit()
