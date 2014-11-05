@@ -1,3 +1,7 @@
+// Copyright (c) 2014 Cesanta Software
+// All rights reserved
+
+#include "mongoose.h"
 #include "mainwindow.h"
 #include <QApplication>
 #include <RestfulApi.h>
@@ -14,8 +18,8 @@ int main(int argc, char *argv[])
     QObject::connect(&a, SIGNAL(aboutToQuit()), &webServerThread, SLOT(sl_quit()));
     //start the webserver thread
     webServerThread.start();
-
     //The gui must be called after the server loads...
      MainWindow w;
-    return a.exec();
+   return a.exec();
 }
+

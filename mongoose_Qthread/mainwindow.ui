@@ -50,7 +50,7 @@
     </property>
     <property name="url">
      <url>
-      <string>http://localhost:38000/</string>
+      <string>http://localhost:38000/login.html</string>
      </url>
     </property>
    </widget>
