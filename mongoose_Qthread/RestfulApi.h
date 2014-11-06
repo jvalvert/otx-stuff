@@ -23,7 +23,7 @@ static const char *s_login_uri = "/login.html";
 static const char *s_error_uri = "/error.html";
 static const char *s_authenticated_uri = "/apps/start/index.html";
 static const char *s_restful_uri ="/restful/"; // hit a restful call
-static const char *s_secret = ":-)";  // Must be known only to server
+static  char *s_secret =NULL;  // This value changes when the user logins
 
 class RestfulApi : public QThread
  {

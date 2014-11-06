@@ -145,6 +145,17 @@ static int check_auth(struct mg_connection *conn) {
 
 
 //TO DO: BASIC AUTHENTICATION Right now for demo purposses a hardcoded user is validated
+
+// this function perform the call to the users and passwords handler (TO DO)
+bool AuthenticateUser (char * name, char * password)
+{
+   // for POC pruposes use sopro as user and password
+   if (strcmp(name, "sopro") == 0 && strcmp(password, "sopro") == 0)
+   {  s_secret=password;
+       return true;}
+   else
+   {return false;}
+}
 int RestfulApi::check_login_form_submission(struct mg_connection *conn)
   {
 
@@ -154,11 +165,12 @@ int RestfulApi::check_login_form_submission(struct mg_connection *conn)
      mg_get_var(conn, "password", password, sizeof(password));
 
      //To do: routine that validate users (maybe passprhase?)
-     if (strcmp(name, "sopro") == 0 && strcmp(password, "sopro") == 0) {
+     if (AuthenticateUser(name,password)){
        // Generate expiry date
        time_t t = time(NULL) + 3600;  // Valid for 1 hour
        snprintf(expire_epoch, sizeof(expire_epoch), "%lu", (unsigned long) t);
        strftime(expire, sizeof(expire), "%a, %d %b %Y %H:%M:%S GMT", gmtime(&t));
+
        generate_ssid(name, expire_epoch, ssid, sizeof(ssid));
        // Set "session id" cookie, there could be some data encoded in it.
        mg_printf(conn,
@@ -186,7 +198,7 @@ int RestfulApi::ev_handler(struct mg_connection *conn, enum mg_event ev) {
       return check_auth(conn);
 
   case MG_REQUEST:
-    fprintf(stderr,"\Authenticated do a server request for:  %s\n",conn->uri);
+
     return serve_request(conn);
 
   default: return MG_FALSE;
